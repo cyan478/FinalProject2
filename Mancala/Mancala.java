@@ -13,7 +13,7 @@ public class Mancala {
 	    _blue[i] = 4;
 	}
 	_redPit = _bluePit = _hand = 0;
-`	_turn = 1;
+	_turn = 1;
     }
 
     public int size(){
@@ -23,48 +23,56 @@ public class Mancala {
     public void turn(int i){
 	if (_turn % 2 == 1){ //ODD -- PLAYER1
 	    //take from the red
-	    _hand; = _red[i];
+	    _hand = _red[i];
 	    _red[i] = 0;
 	    //if hand == 0 we throw exception
-	    while (hand != 0){
-		addRed(i); //checked if not 0 already
-		if (hand != 0){ //if u reach front of red array
+	    addRed(i);
+	    while (_hand != 0){
+		if (_hand != 0){ //if u reach front of red array
 		    _redPit++; //just drop one in pit
 		    _hand--;
 		}
-		if (hand != 0){ //if you still have more
+		if (_hand != 0){ //if you still have more
 		    addBlue(0); //start at blue pit
 		} 
-		if (hand != 0){ //final check 
+		if (_hand != 0){ //final check 
 		    _bluePit++; //drop one in pit
+		    _hand--;
+		}
+		if (_hand != 0){
+		    addRed(_red.length);
 		}
 	    } //while loop until your hand is 0 (aka no more marbles)
 	}
-	else{ //EVEN -- PLAYER2
+	else { //EVEN -- PLAYER2
 	    //take from the blue
-	    _hand; = _blue[i];
+	    _hand = _blue[i];
 	    _blue[i] = 0;
 	    //if hand == 0 we throw exception
-	    while (hand != 0){
-		addBlue(i); //checked if not 0 already
-		if (hand != 0){ //if u reach end of blue array
+	    addBlue(i);
+	    while (_hand != 0){
+		if (_hand != 0){ //if u reach end of blue array
 		    _bluePit++; //just drop one in pit
 		    _hand--;
 		}
-
-		//STOPPED HERE 
-		if (hand != 0){ //if you still have more
+		if (_hand != 0){ //if you still have more
 		    addRed(_red.length); //start at end of red pit
 		} 
-		if (hand != 0){ //final check 
-		    _bluePit++; //drop one in pit
+		if (_hand != 0){ 
+		    _redPit++; //drop one in red pit
+		    _hand--;
+		}
+		if (_hand != 0){
+		    addBlue(0); //start at index 0
+		}
+		if (_hand == 0){
+		    break; 
 		}
 	    } //while loop until your hand is 0 (aka no more marbles)
-  
 	_turn++;
 	System.out.println(this);
+	}
     }
-
 
     public void addRed(int index){
 	for (int i = index; i>0; i--){
@@ -78,6 +86,18 @@ public class Mancala {
 	    _blue[i]++;
 	    _hand--;
 	}
+    }
+    
+    public boolean winner(){ //true means the game ends
+	boolean redEmpty = true;
+	boolean blueEmpty = true;
+	for (int i = 0; i < _red.length; i++){
+	    if (_red[i] != 0)
+		redEmpty = false; //if there are still marbles in red
+	    if (_blue[i] != 0)
+		blueEmpty = false; //same for blue
+	}
+	return redEmpty || blueEmpty; //if any array is empty -> true
     }
 
     //toString =============================================

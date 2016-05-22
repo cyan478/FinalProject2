@@ -1,11 +1,18 @@
+import java.util.Scanner;
+
 //goes in a circular direction counterclockwise
 
 public class Mancala {
 
-    public int [] _red, _blue;
-    public int _redPit, _bluePit, _hand, _turn;
+    public static int [] _red, _blue;
+    public static int _redPit, _bluePit, _hand;
+    public static int _turn;
+    public static boolean _winnerr;
+    public static Scanner io;
 
     public Mancala(){
+	io = new Scanner(System.in);
+	_winnerr = false;
 	_red = new int[6];
 	_blue = new int [6];
 	for (int i = 0; i<6; i++){
@@ -20,7 +27,7 @@ public class Mancala {
 	return _red.length;
     }
 
-    public void turn(int i){
+    public static void turn(int i){
 	if (_turn % 2 == 1){ //ODD -- PLAYER1
 	    //take from the red
 	    _hand = _red[i];
@@ -70,25 +77,24 @@ public class Mancala {
 		}
 	    } //while loop until your hand is 0 (aka no more marbles)
 	_turn++;
-	System.out.println(this);
 	}
     }
 
-    public void addRed(int index){
+    public static void addRed(int index){
 	for (int i = index; i>0; i--){
 	    _red[i]++;
 	    _hand--;
 	}
     }
 
-    public void addBlue(int index){
+    public static void addBlue(int index){
 	for (int i = 0; i < index; i++){
 	    _blue[i]++;
 	    _hand--;
 	}
     }
     
-    public boolean winner(){ //true means the game ends
+    public void winner(){ //true means the game ends
 	boolean redEmpty = true;
 	boolean blueEmpty = true;
 	for (int i = 0; i < _red.length; i++){
@@ -97,7 +103,7 @@ public class Mancala {
 	    if (_blue[i] != 0)
 		blueEmpty = false; //same for blue
 	}
-	return redEmpty || blueEmpty; //if any array is empty -> true
+        _winnerr = redEmpty || blueEmpty; //if any array is empty -> true
     }
 
     //toString =============================================
@@ -124,8 +130,18 @@ public class Mancala {
 	Mancala game = new Mancala();
 	//int a = Integer.parseInt(args[0]);
 	//int b = Integer.parseInt(args[1]);
-	System.out.println(game);
-
+	System.out.println("Welcome to Mancala! This is your board:");
+	while (_winnerr == false){
+	    System.out.println(game);
+	    if (_turn % 2 == 1) 
+		System.out.println("Player 1: Which hole would you like to pick up from? ");
+	    if (_turn % 2 == 0)
+		System.out.println("Player 2: Which hole would you like to pick up from? ");
+	    int x = io.nextInt();
+	    turn(x);
+	}
+	System.out.println(game); //prints even when play wins
+	
     }
 
 } //end

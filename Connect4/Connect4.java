@@ -1,5 +1,5 @@
 import java.util.Scanner;
-//use frame??
+//use frame?
 
 public class Connect4{
     
@@ -22,7 +22,9 @@ public class Connect4{
 	    _bot[i] = 5;
     }
 
-
+    public int getTurn(){
+	return _turn;
+    }
 
 
 
@@ -85,6 +87,16 @@ public class Connect4{
     public static void main(String [] args){
 	Connect4 a = new Connect4();
 	System.out.println(a+"\n");
+	while (a.getTurn()<42){
+	    if (a.getTurn()%2==1) System.out.print("Player 1: ");
+	    else System.out.print("Player 2: ");
+	    System.out.println("Which column would you like to put down?");
+	    int x = StdIn.readInt();
+	    a.turn(x);
+
+
+	}
+	/*
 	a.turn(1);
 	a.turn(2);
 	a.turn(3);
@@ -96,7 +108,7 @@ public class Connect4{
 	a.turn(0);
 	a.turn(3);
 	a.turn(3);
-	
+	*/
     }
 
 } //end

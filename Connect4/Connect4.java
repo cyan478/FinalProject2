@@ -6,12 +6,17 @@ public class Connect4{
     public int _turn;
     public int [][]  _board;
     public int [] _bot;
+    public boolean _won;
     //1=*
     //2= $
     //1 goes first
 
     public static final String HELP = "temp 4 now";
 
+    public boolean isWon(){
+	return _won;
+    }
+    
     public Connect4(){
 	_board= new int [6][7];
 	_turn = 1;
@@ -22,6 +27,7 @@ public class Connect4{
 	}
 	for (int i=0; i<7; i++)
 	    _bot[i] = 5;
+	_won = false;
     }
 
     public int getTurn(){
@@ -42,8 +48,11 @@ public class Connect4{
 	_bot[i]--;
 	_turn++;
        	System.out.println(this);
-	if (win(-1*k+2))
-	    System.out.println("GAME OVER: Player "+-1*k+2 +"wins! Press Ctrl+C to exit");
+	k = -1*k +2;
+	if (win(k)){
+	    System.out.println("GAME OVER: Player "+k+" wins! Press Ctrl+C to exit");
+	    _won = true;
+	}
     }
     
     //backtrack this
@@ -82,18 +91,22 @@ public class Connect4{
 	if (x<0||y<0||x>=6||y>=7||_board[x][y]!=k)
 	    return false;
 	if (cnt >= 4) return true;
-	return win2(x+1,y+1,k,cnt+1);
+	return win3(x+1,y+1,k,cnt+1);
     }
     public boolean win4(int x, int y, int k, int cnt){
 	if (x<0||y<0||x>=6||y>=7||_board[x][y]!=k)
 	    return false;
 	if (cnt >= 4) return true;
-	return win2(x+1,y-1,k,cnt+1);
+	return win3(x+1,y-1,k,cnt+1);
     }
     
     //(potato) chips
     public String toString(){
-	String ans = "\n";
+	String ans = "\n  ";
+	for(int i = 0 ; i<7; i++){
+	    ans+= i+1+"   ";
+	}
+	ans+="\n";
 	for (int i = 0; i< _board.length; i++){
 	    ans += "|";
 	    for(int j =0;j<_board[i].length; j++){
@@ -112,16 +125,16 @@ public class Connect4{
     public static void main(String [] args){
 	Connect4 a = new Connect4();
 	System.out.println(a+"\n");
-	while (a.getTurn()<42){
+	while (a.getTurn()<42&&!a.isWon()){
 	    if (a.getTurn()%2==1) System.out.print("Player 1: ");
 	    else System.out.print("Player 2: ");
 	    System.out.println("Which column would you like to put down?");
 	    int x = StdIn.readInt();
 	    a.turn(x-1);
-	    
-
 
 	}
+	a = null;
+	
 	/*
 	a.turn(1);
 	a.turn(2);

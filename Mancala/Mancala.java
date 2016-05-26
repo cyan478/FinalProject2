@@ -28,12 +28,13 @@ public class Mancala {
     }
 
     public static void turn(int i){
-	if (_turn % 2 == 1){ //ODD -- PLAYER1
+	i = i-1;
+	if (_turn == 1 || _turn % 2 == 1){ //ODD -- PLAYER1
 	    //take from the red
 	    _hand = _red[i];
 	    _red[i] = 0;
 	    //if hand == 0 we throw exception
-	    addRed(i);
+	    addRed(i-1);
 	    while (_hand != 0){
 		if (_hand != 0){ //if u reach front of red array
 		    _redPit++; //just drop one in pit
@@ -42,6 +43,7 @@ public class Mancala {
 		if (_hand != 0){ //if you still have more
 		    addBlue(0); //start at blue pit
 		} 
+		System.out.println("yay")
 		if (_hand != 0){ //final check 
 		    _bluePit++; //drop one in pit
 		    _hand--;
@@ -49,6 +51,8 @@ public class Mancala {
 		if (_hand != 0){
 		    addRed(_red.length);
 		}
+		if (_hand == 0)
+		    break;
 	    } //while loop until your hand is 0 (aka no more marbles)
 	}
 	else { //EVEN -- PLAYER2
@@ -76,19 +80,20 @@ public class Mancala {
 		    break; 
 		}
 	    } //while loop until your hand is 0 (aka no more marbles)
-	_turn++;
 	}
+	_turn++;
     }
 
     public static void addRed(int index){
-	for (int i = index; i>0; i--){
+	if (index == -1) return;
+	for (int i = index; i>=0; i--){
 	    _red[i]++;
 	    _hand--;
 	}
     }
 
     public static void addBlue(int index){
-	for (int i = 0; i < index; i++){
+	for (int i = 0; i <= index; i++){
 	    _blue[i]++;
 	    _hand--;
 	}
@@ -130,6 +135,7 @@ public class Mancala {
 	Mancala game = new Mancala();
 	//int a = Integer.parseInt(args[0]);
 	//int b = Integer.parseInt(args[1]);
+	System.out.println();
 	System.out.println("Welcome to Mancala! This is your board:");
 	while (_winnerr == false){
 	    System.out.println(game);

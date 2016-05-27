@@ -23,7 +23,7 @@ public class Mancala {
 	_turn = 1;
     }
 
-    public int size(){
+    public static int size(){
 	return _red.length;
     }
 
@@ -35,22 +35,26 @@ public class Mancala {
 	    _red[i] = 0;
 	    //if hand == 0 we throw exception
 	    addRed(i-1);
+	    System.out.println("a" + _hand);
 	    while (_hand != 0){
 		if (_hand != 0){ //if u reach front of red array
 		    _redPit++; //just drop one in pit
 		    _hand--;
 		}
+		System.out.println(_hand);
 		if (_hand != 0){ //if you still have more
 		    addBlue(0); //start at blue pit
 		} 
-		System.out.println("yay")
+		System.out.println(_hand);
 		if (_hand != 0){ //final check 
 		    _bluePit++; //drop one in pit
 		    _hand--;
 		}
+		System.out.println(_hand);
 		if (_hand != 0){
-		    addRed(_red.length);
+		    addRed(size()-1);
 		}
+		//System.out.println("woo");
 		if (_hand == 0)
 		    break;
 	    } //while loop until your hand is 0 (aka no more marbles)
@@ -67,7 +71,7 @@ public class Mancala {
 		    _hand--;
 		}
 		if (_hand != 0){ //if you still have more
-		    addRed(_red.length); //start at end of red pit
+		    addRed(size()-1); //start at end of red pit
 		} 
 		if (_hand != 0){ 
 		    _redPit++; //drop one in red pit
@@ -87,13 +91,20 @@ public class Mancala {
     public static void addRed(int index){
 	if (index == -1) return;
 	for (int i = index; i>=0; i--){
+	    System.out.println("w" + _hand);
+	    if (_hand == 0)
+		break;
 	    _red[i]++;
 	    _hand--;
 	}
     }
 
     public static void addBlue(int index){
-	for (int i = 0; i <= index; i++){
+	if (index == size()) return;
+	for (int i = index; i <= size(); i++){
+	    System.out.println("blue" + _hand);
+	    if (_hand == 0) 
+		break;
 	    _blue[i]++;
 	    _hand--;
 	}

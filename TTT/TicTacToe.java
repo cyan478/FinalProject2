@@ -14,19 +14,23 @@ public class TicTacToe{
 
     }
 
+    public void ins(int x, int y){
+	if (x>2||y>2||x<0||y<0){
+	    System.out.println("invalid row and/or column number. Please input a a valid number");
+	    return;
+	}
+	if (_board[x][y] != 0){
+	    System.out.println("that space is already taken");
+	}
+	_board[x][y] = 
+    }
+
+
     public void respond(){
-	if (emptySpaces() == 1)
-	    depositFirstEmpty(_aiInt);
+	
 
-
-	_turn++;
     }
-
-    public int vis(){
-	//check surroundings backtrack make paths 
-  
-    }
-
+	    
     private void depositFirstEmpty(int k){
 	for (int i =0 ; i<3; i++)
 	    for (int j = 0; j<3; j++)

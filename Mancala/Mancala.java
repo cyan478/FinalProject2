@@ -27,7 +27,22 @@ public class Mancala {
 	return _red.length;
     }
 
-    public static void turn(int i){
+    public static void turn(String k){
+	int i = 0;
+	try {
+	    i = Integer.parseInt(k);
+	}
+	catch (NumberFormatException e){
+	    System.out.println("Invalid hole. Please enter a number between 1 to 6, inclusive.");
+	    return;
+	}
+	if (i ==0)
+	    i = 15;
+	if (!(i >= 1 || i <= 6)){
+	    System.out.println("Invalid hole. Please enter a number between 1 to 6, inclusive.");
+	    return;
+	}
+	
 	i = i-1;
 	if (_turn == 1 || _turn % 2 == 1){ //ODD -- PLAYER1
 	    //take from the red
@@ -64,7 +79,7 @@ public class Mancala {
 	    _hand = _blue[i];
 	    _blue[i] = 0;
 	    //if hand == 0 we throw exception
-	    addBlue(i);
+	    addBlue(i+1);
 	    while (_hand != 0){
 		if (_hand != 0){ //if u reach end of blue array
 		    _bluePit++; //just drop one in pit
@@ -144,8 +159,7 @@ public class Mancala {
 
     public static void main(String[] args){
 	Mancala game = new Mancala();
-	//int a = Integer.parseInt(args[0]);
-	//int b = Integer.parseInt(args[1]);
+	int x = 0;
 	System.out.println();
 	System.out.println("Welcome to Mancala! This is your board:");
 	while (_winnerr == false){
@@ -154,11 +168,17 @@ public class Mancala {
 		System.out.println("Player 1: Which hole would you like to pick up from? ");
 	    if (_turn % 2 == 0)
 		System.out.println("Player 2: Which hole would you like to pick up from? ");
-	    int x = io.nextInt();
+	    String x = io.next();
 	    turn(x);
 	}
 	System.out.println(game); //prints even when play wins
-	
+	int x = 0;
+	if (_turn % 2 == 1)
+	    x = 1;
+	if (_turn % 2 =0 0)
+	    x = 2;
+	System.out.println("Congratulations to Player " + x + "!");
+	System.out.println("It took you " + _turns + " turns to finish the game.");
     }
 
 } //end

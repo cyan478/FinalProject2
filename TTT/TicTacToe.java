@@ -1,68 +1,56 @@
 public class TicTacToe{
 
-    public int[][] _board;
-    public int _turn, _aiInt;
+    public int[] _board;
+    public int _turn;
     public boolean _won;
     
     public TicTacToe(){
-	_board = new int [3][3];
+	_board = new int [9];
 	_turn = 1;
 	_won = false;
-	for (int i =0 ; i<3; i++)
-	    for (int j = 0; j<3; j++)
-		_board[i][j] = 0;
-
     }
 
-    public void ins(int x, int y){
-	if (x>2||y>2||x<0||y<0){
-	    System.out.println("invalid row and/or column number. Please input a a valid number");
-	    return;
-	}
-	if (_board[x][y] != 0){
-	    System.out.println("that space is already taken");
-	}
-	_board[x][y] = 
-    }
-
-
-    public void respond(){
+    public voic turn(int i){
+	if (i >= 9 || i<0) return;
+	if (_board[i] != 0) return;
+	int k = _turn%2;
 	
-
-    }
-	    
-    private void depositFirstEmpty(int k){
-	for (int i =0 ; i<3; i++)
-	    for (int j = 0; j<3; j++)
-		if (_board[i][j] == 0)
-		    _board[i][j] = k;
+	win(k);
     }
 
-    private int emptySpaces(){
-	int ans = 0;
-	for (int i = 0; i<3; i++)
-	    for (int j = 0 ; j <3; j++)
-		if (_board[i][j] == 0)
-		    ans++;
-	return ans;
+    public boolean isWon(){
+	return _won;
     }
 
-
-    private String getValue(int x, int y){
-	if (_board[x][y] == 0)
+    private String getValue(int x){
+	if (_board[x] == 0)
 	    return " ";
-	if (_board[x][y] == 1)
+	if (_board[x] == 1)
 	    return "X";
 	else return "O";
     }
 
+    public boolean win(int k){
+	//checks if k has TTT
+	boolean ans = false;
+	for (int i = 0; i<5; i++){
+	    ans = ans || win(i, 8-i, 4,k);
+	}
+	ans = ans || win(0, 1, 2,k) || win(2,5,8,k) || win(6,7,8,k) || win(0,3,6,k);
+	return ans;
+    }
+
+    public boolean win(int a, int b, int c, int k){
+	return (_board[a] == k &&  _board[a] == _board[b] && _board[b] == _board[c] );
+    }
+
     public String toString(){
 	String ans = "\n";
-	ans += "\t" +getValue(0,0) + " | "+ getValue(0,1) + " | " + getValue(0,2);
+	ans += "\t" +getValue(0) + " | "+ getValue(1) + " | " + getValue(2);
 	ans += "\n\t---------\n";
-	ans += "\t"+getValue(1,0) + " | " + getValue(1,1) + " | " + getValue (1,2);
+	ans += "\t"+getValue(3) + " | " + getValue(4) + " | " + getValue (5);
 	ans += "\n\t---------\n";
-	ans += "\t"+getValue(2,0) + " | " + getValue(2,1) + " | " + getValue(2,2);
+	ans += "\t"+getValue(6) + " | " + getValue(7) + " | " + getValue(8);
 
 	return ans;
 

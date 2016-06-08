@@ -175,7 +175,7 @@ public class Mancala {
 	int x = 0;
 	if (_turn % 2 == 1)
 	    x = 1;
-	if (_turn % 2 =0 0)
+	if (_turn % 2 == 0)
 	    x = 2;
 	System.out.println("Congratulations to Player " + x + "!");
 	System.out.println("It took you " + _turns + " turns to finish the game.");

@@ -10,7 +10,7 @@ public class TicTacToe{
 	_won = false;
     }
 
-    public voic turn(int i){
+    public void turn(int i){
 	if (i >= 9 || i<0) return;
 	if (_board[i] != 0) return;
 	int k = _turn%2;
@@ -18,6 +18,7 @@ public class TicTacToe{
 	else _board[i] = 2;
 	_turn++;
 	int j = k;
+	System.out.println(this);
 	if ( win(k)){
 	    System.out.println("stuff");
 	    _won = true;
@@ -47,12 +48,17 @@ public class TicTacToe{
 	return ans;
     }
 
+    public int getTurn(){
+	return _turn;
+    }
+
     public boolean win(int a, int b, int c, int k){
 	return (_board[a] == k &&  _board[a] == _board[b] && _board[b] == _board[c] );
     }
 
     public String toString(){
 	String ans = "\n";
+	ans += "\t 1  2  3\n\t 4  5  6\n\t 7  8  9\n\n";
 	ans += "\t" +getValue(0) + " | "+ getValue(1) + " | " + getValue(2);
 	ans += "\n\t---------\n";
 	ans += "\t"+getValue(3) + " | " + getValue(4) + " | " + getValue (5);
@@ -64,9 +70,17 @@ public class TicTacToe{
 
     public static void main(String [] args){
 	TicTacToe a = new TicTacToe();
-	System.out.println(a);
-	System.out.println("pick 1 or 2");
+	System.out.println(a+"\n");
 	
+	while (a.getTurn()<9&&!a.isWon()){
+	    if (a.getTurn()%2==1) System.out.print("Player 1: ");
+	    else System.out.print("Player 2: ");
+	    System.out.println("Which position would you like to put down?");
+	    int x = StdIn.readInt();
+	    a.turn(x-1);
+
+	}
+	a = null;
 
 
 	

@@ -14,8 +14,15 @@ public class TicTacToe{
 	if (i >= 9 || i<0) return;
 	if (_board[i] != 0) return;
 	int k = _turn%2;
-	
-	win(k);
+	if (k==1) _board[i] = 1;
+	else _board[i] = 2;
+	_turn++;
+	int j = k;
+	if ( win(k)){
+	    System.out.println("stuff");
+	    _won = true;
+	    
+	}
     }
 
     public boolean isWon(){
@@ -51,7 +58,6 @@ public class TicTacToe{
 	ans += "\t"+getValue(3) + " | " + getValue(4) + " | " + getValue (5);
 	ans += "\n\t---------\n";
 	ans += "\t"+getValue(6) + " | " + getValue(7) + " | " + getValue(8);
-
 	return ans;
 
     }

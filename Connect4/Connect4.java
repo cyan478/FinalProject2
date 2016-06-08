@@ -34,23 +34,38 @@ public class Connect4{
 	return _turn;
     }
 
-
+    //full col
 
     //check for 5 6 and 7
     public void turn(int i){
+
+
+	//fix -12 shit
 	if (i<0||i>6){ System.out.println("\nInvalid row number. Please enter an integer between 1 and 7, inclusive.\n");
 	    return;
 	}
 	int k = _turn%2;
 	if (k==1){
+	    if (_bot[i]<0){
+		System.out.println("That column is already full. Please enter the number of a column that is not full\n");
+		return;
+	    }
 	    _board[_bot[i]][i]=1;}
-	else _board[_bot[i]][i]=2;
+	else {
+	      if (_bot[i]<0){
+		System.out.println("That column is already full. Please enter the number of a column that is not full\n");
+		return;
+	    }
+	    _board[_bot[i]][i]=2;
+
+	}
 	_bot[i]--;
 	_turn++;
        	System.out.println(this);
 	k = -1*k +2;
-	if (win(k)){
-	    System.out.println("GAME OVER: Player "+k+" wins! Press Ctrl+C to exit");
+	int j = k;
+	if (win(j)){
+	    System.out.println("GAME OVER: Player "+k+" wins! \n\n\n");
 	    _won = true;
 	}
     }
@@ -63,8 +78,8 @@ public class Connect4{
 	    for(int j = 0; j<7;j++){
 		if (_board[i][j]==k){
 		    ans = winR(i,j,k,1);
-		if (ans)
-		    return ans;}
+		    if (ans)
+			return ans;}
 	    }
 	}
 	return ans;
@@ -134,20 +149,7 @@ public class Connect4{
 
 	}
 	a = null;
-	
-	/*
-	a.turn(1);
-	a.turn(2);
-	a.turn(3);
-	a.turn(1);
-	a.turn(3);
-	
-	a.turn(0);
-	a.turn(3);
-	a.turn(0);
-	a.turn(3);
-	a.turn(3);
-	*/
+
     }
 
 } //end

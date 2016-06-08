@@ -116,13 +116,14 @@ public class Mancala {
 
     public static void addBlue(int index){
 	if (index == size()) return;
-	for (int i = index; i <= size(); i++){
+	for (int i = index; i < size(); i++){
 	    System.out.println("blue" + _hand);
 	    if (_hand == 0) 
 		break;
 	    _blue[i]++;
 	    _hand--;
 	}
+	System.out.println("hi");
     }
     
     public void winner(){ //true means the game ends
@@ -168,17 +169,17 @@ public class Mancala {
 		System.out.println("Player 1: Which hole would you like to pick up from? ");
 	    if (_turn % 2 == 0)
 		System.out.println("Player 2: Which hole would you like to pick up from? ");
-	    String x = io.next();
-	    turn(x);
+	    String y = io.next();
+	    turn(y);
 	}
 	System.out.println(game); //prints even when play wins
-	int x = 0;
+        x = 0;
 	if (_turn % 2 == 1)
 	    x = 1;
-	if (_turn % 2 =0 0)
+	if (_turn % 2 == 0)
 	    x = 2;
 	System.out.println("Congratulations to Player " + x + "!");
-	System.out.println("It took you " + _turns + " turns to finish the game.");
+	System.out.println("It took you " + _turn + " turns to finish the game.");
     }
 
 } //end

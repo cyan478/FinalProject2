@@ -1,5 +1,4 @@
 import java.util.Scanner;
-//use frame?
 
 public class Connect4{
     
@@ -10,8 +9,6 @@ public class Connect4{
     //1=*
     //2= $
     //1 goes first
-
-    public static final String HELP = "temp 4 now";
 
     public boolean isWon(){
 	return _won;
@@ -38,9 +35,6 @@ public class Connect4{
 
     //check for 5 6 and 7
     public void turn(int i){
-
-
-	//fix -12 shit
 	if (i<0||i>6){ System.out.println("\nInvalid row number. Please enter an integer between 1 and 7, inclusive.\n");
 	    return;
 	}
@@ -67,6 +61,12 @@ public class Connect4{
 	if (win(j)){
 	    System.out.println("GAME OVER: Player "+k+" wins! \n\n\n");
 	    _won = true;
+	    return;
+	}
+	if (_turn == 43){
+	    System.out.println("I don't know how, but you managed to tie the game");
+	    _won= true;
+	    return;
 	}
     }
     
@@ -117,11 +117,11 @@ public class Connect4{
     
     //(potato) chips
     public String toString(){
-	String ans = "\n  ";
+	String ans = "\n\t  ";
 	for(int i = 0 ; i<7; i++){
 	    ans+= i+1+"   ";
 	}
-	ans+="\n";
+	ans+="\n\t";
 	for (int i = 0; i< _board.length; i++){
 	    ans += "|";
 	    for(int j =0;j<_board[i].length; j++){
@@ -132,7 +132,7 @@ public class Connect4{
 		else ans+=" $ |";
 		}
 	    }
-	    ans+="\n";
+	    ans+="\n\t";
 	}
 	return ans;
     }

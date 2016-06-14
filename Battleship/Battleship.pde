@@ -51,6 +51,7 @@ Tile [][] sComp = new Tile [5][5];
 int [][] bComp = new int [5][5];
 int numRed = 0;
 int numRedC = 0;
+
 PFont source;
 
 void setup() {
@@ -89,8 +90,8 @@ Tile[][] initializeC(Tile [][] board) { // all elements are -1
 
 int[][] randomize(int [][] board) {
   for (int s = 0; s < 4; s++) {
-
-    if (s <= 1) { // vertical 2-tile ship
+    double r = Math.random();
+    if (r < .5) { //vertical 2-tile ship
       int rX = (int)(Math.random()*4); 
       int rY = (int)(Math.random()*5); 
 
@@ -99,8 +100,8 @@ int[][] randomize(int [][] board) {
         rY = (int)(Math.random()*5);
       }
 
-      board[rX][rY] = 2;
-      board[rX+1][rY] = 2;
+      board[rX][rY] = s+1;
+      board[rX+1][rY] = s+1;
     } else { // horizontal 2-tile ship
       int rX = (int)(Math.random()*5); 
       int rY = (int)(Math.random()*4); 
@@ -110,8 +111,8 @@ int[][] randomize(int [][] board) {
         rY = (int)(Math.random()*4);
       }
 
-      board[rX][rY] = 3;
-      board[rX][rY + 1] = 3;
+      board[rX][rY] = s+1;
+      board[rX][rY + 1] = s+1;
     }
   }
   return board;
@@ -190,7 +191,7 @@ void draw() {
   text("b", 285, 245);
   text("c", 285, 270);
   text("d", 285, 295);
-  text("e", 285, 320);
+  text("e", 285, 320); 
   rect(195, 380, 105, 40);
   fill(0);
   text("restart", 205, 405);
@@ -208,8 +209,7 @@ void draw() {
     if ((numRed == 8) && (numRedC == 8)) text("tie", 300, 120);
     else if (numRed == 8) text("computer wins", 100, 120);
     else if (numRedC == 8) text("you win", 160, 120);
-  }
-  else newMove();
+  } else newMove();
 
   if (overButton()) {
     stroke(#FFFFFF);
